@@ -9,9 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(Order::class, function (Faker $faker) {
     $process = Process::all()[rand(0, 1)];
     $status = Status::all()[rand(0, 2)];
-    $item = Furniture::count() ?
-        Furniture::inRandomOrder()->first()->id :
-        factory(Furniture::class)->create();
+    $item = Furniture::all()->count() ? Furniture::inRandomOrder()->first() : factory(Furniture::class)->create();
     return [
         'process' => $process,
         'status' => $status,

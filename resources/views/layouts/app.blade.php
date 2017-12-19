@@ -12,6 +12,21 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .navbar { margin-bottom: 0; }
+    </style>
+
+    <!-- Pass Auth data to JavaScript -->
+    <script>
+        window.App = {!! json_encode([
+            'user' => Auth::user(),
+            'signedIn' => Auth::check(),
+            'isAdmin' => Auth::check() && Auth::user()->isAdmin(),
+        ]) !!};
+    </script>
+
+    @yield('header')
 </head>
 <body>
     <div id="app">

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $guarded = [];
+    protected $casts = [
+        'furniture_id' => 'integer'
+    ];
 
     /**
      * Get orders's furniture item (one-to-one relationship).
@@ -17,5 +20,16 @@ class Order extends Model
     public function furniture()
     {
         return $this->belongsTo(Furniture::class);
+    }
+
+    /**
+     * Order scopes by created at date (latest come first).
+     *
+     * @param \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('created_at', 'desc');
     }
 }

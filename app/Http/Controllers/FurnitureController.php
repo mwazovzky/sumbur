@@ -20,7 +20,9 @@ class FurnitureController extends Controller
      */
     public function index()
     {
-        return view('furniture.index', ['furniture' => Furniture::all()]);
+        $furniture = Furniture::all();
+
+        return $furniture;
     }
 
     /**
@@ -31,8 +33,6 @@ class FurnitureController extends Controller
      */
     public function store(Request $request)
     {
-        // authorization
-
         $attributes = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -40,7 +40,7 @@ class FurnitureController extends Controller
 
         $item = Furniture::create($attributes);
 
-        return response([$item], 200);
+        return response($item, 200);
     }
 
     /**
@@ -52,8 +52,6 @@ class FurnitureController extends Controller
      */
     public function update(Request $request, Furniture $furniture)
     {
-        // authorize
-
         $attributes = $request->validate([
             'name' => 'sometimes|required',
             'description' => 'sometimes|required',
@@ -61,7 +59,7 @@ class FurnitureController extends Controller
 
         $furniture->update($attributes);
 
-        return response([$furniture], 200);
+        return response($furniture, 200);
     }
 
     /**

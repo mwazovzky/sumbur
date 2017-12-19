@@ -1,12 +1,3 @@
-@extends('layouts.app')
+<h2 class="text-center">Каталог Мебели</h2>
 
-@section('content')
-    <div class="container">
-        <h1>Furniture Catalog</h1>
-        <ul>
-            @foreach($furniture as $item)
-                <p>{{ $item->name }} / {{ $item->description }}</p>
-            @endforeach
-        </ul>
-    </div>
-@endsection
+<furniture></furniture>

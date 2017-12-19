@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\Status;
 use App\Process;
+use App\Furniture;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -25,7 +26,15 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return view('orders.index', ['orders' => Order::all()]);
+        $orders = Order::with('furniture')->latest()->get();
+        $processes = Process::all();
+        $statuses = Status::all();
+
+        return response([
+            'orders' => $orders,
+            'processes' => $processes,
+            'statuses' => $statuses,
+        ], 200);
     }
 
     /**
@@ -44,7 +53,7 @@ class OrdersController extends Controller
 
         $order = Order::create($attributes);
 
-        return $order;
+        return $order->load('furniture');
     }
 
     /**
@@ -63,5 +72,18 @@ class OrdersController extends Controller
         $order->update($attributes);
 
         return $order;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Order  $order
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Order $order)
+    {
+        $order->delete();
+
+        return response(['deleted'], 204);
     }
 }

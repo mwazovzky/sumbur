@@ -9,13 +9,15 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+// global event bus
+window.events = new Vue();
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Setup autharization
+Vue.prototype.signedIn = window.App.signedIn;
+Vue.prototype.isAdmin = window.App.isAdmin;
+
+Vue.component('orders', require('./components/Orders.vue'));
+Vue.component('furniture', require('./components/Furniture.vue'));
 
 const app = new Vue({
     el: '#app'

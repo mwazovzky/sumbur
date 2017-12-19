@@ -17,15 +17,17 @@ class FurnitureApiTest extends TestCase
         $this->signIn();
         // .. and a furniture item
         $furniture = factory(Furniture::class)->create([
-            'name' => 'Order Name',
-            'description' => 'Order Description',
+            'name' => 'Item Name',
+            'description' => 'Item Description',
         ]);
         // When we fetch furniture catalog index
-        $response = $this->get(route('furniture.index'));
+        $response = $this->getJson(route('furniture.index'));
         // Then we see the item's name and description
         $response->assertStatus(200)
-            ->assertSee('Order Name')
-            ->assertSee('Order Description');
+            ->assertJsonFragment([
+                'name' => 'Item Name',
+                'description' => 'Item Description'
+            ]);
     }
 
     /** @test */
@@ -35,7 +37,7 @@ class FurnitureApiTest extends TestCase
         $this->loginAdmin();
         // When we make a post request
         $furniture = factory(Furniture::class)->make();
-        $this->post(route('furniture.store'), $furniture->toArray())
+        $this->postJson(route('furniture.store'), $furniture->toArray())
             ->assertStatus(200);
         // Then new furniture item is created
         $this->assertDatabaseHas('furniture', [
@@ -45,14 +47,14 @@ class FurnitureApiTest extends TestCase
     }
 
     /** @test */
-    public function auhtenticated_user_can_update_furniture_catalog_item()
+    public function admin_can_update_furniture_catalog_item()
     {
         // Given we have a user logged in as admin
         $this->loginAdmin();
         // .. and a furniture item
         $furniture = factory(Furniture::class)->create();
         // When we make a patch request
-        $this->patch(route('furniture.update', $furniture), [
+        $this->patchJson(route('furniture.update', $furniture), [
             'name' => 'Updated Name',
             'description' => 'Updated Description',
         ])->assertStatus(200);
@@ -64,7 +66,7 @@ class FurnitureApiTest extends TestCase
     }
 
     /** @test */
-    public function auhtenticated_user_can_delete_furniture_catalog_item()
+    public function admin_can_delete_furniture_catalog_item()
     {
         // Given we have a user logged in as admin
         $this->loginAdmin();
@@ -75,7 +77,7 @@ class FurnitureApiTest extends TestCase
             'description' => $furniture->description,
         ]);
         // When we make a delete request
-        $this->delete(route('furniture.destroy', $furniture))
+        $this->deleteJson(route('furniture.destroy', $furniture))
             ->assertStatus(204);
         // Then the furniture item is deleted
         $this->assertDatabaseMissing('furniture', [
