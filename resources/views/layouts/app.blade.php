@@ -8,13 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Sumbur</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
-        .navbar { margin-bottom: 0; }
+        .navbar { margin-bottom: 0; background-color: hsl(171, 100%, 41%); }
     </style>
 
     <!-- Pass Auth data to JavaScript -->

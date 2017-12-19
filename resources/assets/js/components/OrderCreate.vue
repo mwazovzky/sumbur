@@ -86,6 +86,7 @@
     };
 </script>
 <style scope>
-    button { width: 100%; }
+    .btn-primary { width: 100%; background-color:  hsl(171, 100%, 41%); }
+    .btn-primary:hover { background-color:  hsl(171, 100%, 41%); }
     input { width: 100%; }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <tbody :class="statusColor">
+    <tbody>
         <tr v-if="editing">
             <td v-text="data.id"></td>
             <td>
@@ -19,10 +19,10 @@
         </tr>
 
         <tr v-else>
-            <td v-text="data.id"></td>
-            <td v-text="status"></td>
-            <td v-text="data.process"></td>
-            <td v-text="name"></td>
+            <td v-text="data.id" :class="statusColor"></td>
+            <td v-text="status" :class="statusColor"></td>
+            <td v-text="data.process" :class="statusColor"></td>
+            <td v-text="name" :class="statusColor"></td>
             <td v-if="isAdmin">
                 <button class="btn btn-info btn-xs" @click="edit">Edit</button>
             </td>
@@ -91,7 +91,9 @@
     }
 </script>
 <style scoped>
-    button { width: 100%; }
+    button { width: 50px; color: hsl(0, 0%, 20%); }
+    .btn-danger { background-color: hsl(348, 100%, 61%); }
+    .btn-info { background-color: hsl(48, 100%, 67%); }
     .new { background-color: hsl(348, 100%, 61%); }
     .wip { background-color: hsl(48, 100%, 67%); }
     .completed { background-color: hsl(171, 100%, 41%); }
