@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $guarded = [];
+
     protected $casts = [
         'furniture_id' => 'integer'
     ];
@@ -23,7 +24,7 @@ class Order extends Model
     }
 
     /**
-     * Order scopes by created at date (latest come first).
+     * Sort orders by created_at date (latest come first).
      *
      * @param \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder

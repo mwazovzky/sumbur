@@ -4,7 +4,7 @@
             <td></td>
             <td>
                 <select v-model="status" class="form-control">
-                    <option v-for="(item, index) in statuses" :value="item" v-text="item"></option>
+                    <option v-for="item in statuses" :value="item" v-text="item"></option>
                 </select>
             </td>
             <td>
@@ -16,7 +16,6 @@
                 <select v-model="furniture_id" class="form-control">
                     <option v-for="item in catalog" :value="item.id" v-text="item.name"></option>
                 </select>
-                <!-- <input type="text" v-model="furniture_id" class="form-control"> -->
             </td>
             <td colspan="2">
                 <div class="form-group">
@@ -53,17 +52,18 @@
 
         created() {
             window.events.$on('catalog:updated', () => this.updateCatalog());
-
             this.updateCatalog();
         },
 
         methods: {
             create() {
-                axios.post(this.endpoint, {
+                let data = {
                     status: this.status,
                     process: this.process,
                     furniture_id: this.furniture_id
-                })
+                };
+
+                axios.post(this.endpoint, data)
                     .then((response) => {
                         this.$emit('created', response.data);
                         this.reset();
@@ -88,5 +88,4 @@
 <style scope>
     button { width: 100%; }
     input { width: 100%; }
-    select { height: 100%;  line-height: 100%; }
 </style>

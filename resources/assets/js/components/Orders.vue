@@ -38,8 +38,7 @@
                 endpoint: '/orders',
                 orders: [],
                 statuses: [],
-                processes: [],
-                catalog: []
+                processes: []
             };
         },
 
@@ -53,7 +52,6 @@
 
         methods: {
             add(data) {
-                console.log(data);
                 this.orders.unshift(data);
             },
 
@@ -68,6 +66,3 @@
         }
     }
 </script>
-<style scoped>
-
-</style>

@@ -16,14 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('home', function ($view) {
-            $orders = Order::all()->take(5);
-            $furniture = Furniture::all();
-            return $view->with([
-                'orders'     => $orders,
-                'furniture' => $furniture,
-            ]);
-        });
+        //
     }
 
     /**

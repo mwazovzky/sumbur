@@ -15,12 +15,14 @@ class OrdersController extends Controller
     {
         // any signed in user can see and create orders
         $this->middleware('auth')->only(['index', 'store']);
-        // only admin can update/delete
+        // only admin can update/delete orders
         $this->middleware('admin')->except(['index', 'store']);
     }
 
     /**
-     * Display a listing of the resource.
+     * Fetch all orders.
+     * List of existing processes and statuses is provided to construct select elements
+     * without additional server requests
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,7 +40,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created order in database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -57,7 +59,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified order status in database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Order  $order
@@ -75,7 +77,7 @@ class OrdersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified order from database.
      *
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response

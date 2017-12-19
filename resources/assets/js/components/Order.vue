@@ -1,5 +1,5 @@
 <template>
-    <tbody>
+    <tbody :class="statusColor">
         <tr v-if="editing">
             <td v-text="data.id"></td>
             <td>
@@ -8,10 +8,10 @@
                 </select>
             </td>
             <td v-text="data.process"></td>
-            <td v-text="data.furniture.name"></td>
+            <td v-text="name"></td>
             </td>
             <td class="centered" v-if="isAdmin">
-                <button class="btn btn-warning btn-xs" @click="update">Update</button>
+                <button class="btn btn-info btn-xs" @click="update">Update</button>
             </td>
             <td class="centered" v-if="isAdmin">
                 <button class="btn btn-danger btn-xs" @click="cancel">Cancel</button>
@@ -22,9 +22,9 @@
             <td v-text="data.id"></td>
             <td v-text="status"></td>
             <td v-text="data.process"></td>
-            <td v-text="data.furniture.name"></td>
+            <td v-text="name"></td>
             <td v-if="isAdmin">
-                <button class="btn btn-warning btn-xs" @click="edit">Edit</button>
+                <button class="btn btn-info btn-xs" @click="edit">Edit</button>
             </td>
             <td v-if="isAdmin">
                 <button class="btn btn-danger btn-xs" @click="remove">Delete</button>
@@ -45,15 +45,27 @@
             };
         },
 
+        computed: {
+            // order furniture item may be deleted from the catalog
+            name() {
+                return this.data.furniture ? this.data.furniture.name : '#DELETED';
+            },
+
+            statusColor() {
+                if (!this.isAdmin) return '';
+                let colors = ['new', 'wip', 'completed'];
+                let index = this.statuses.indexOf(this.status);
+                return colors[index];
+            }
+        },
+
         methods: {
-            remove() {
-                axios.delete(`${this.endpoint}/${this.data.id}`).then(() => this.$emit('deleted'));
+            edit() {
+                this.editing = true;
             },
 
             update() {
-                axios.patch(`${this.endpoint}/${this.data.id}`, {
-                    status: this.status,
-                })
+                axios.patch(`${this.endpoint}/${this.data.id}`, { status: this.status })
                     .then((response) => {
                         this.$emit('updated', response.data);
                         this.editing = false;
@@ -61,13 +73,13 @@
                     .catch(errors => console.log(errors));
             },
 
-            edit() {
-                this.editing = true;
-            },
-
             cancel() {
                 this.editing = false;
                 this.reset();
+            },
+
+            remove() {
+                axios.delete(`${this.endpoint}/${this.data.id}`).then(() => this.$emit('deleted'));
             },
 
             reset() {
@@ -80,4 +92,7 @@
 </script>
 <style scoped>
     button { width: 100%; }
+    .new { background-color: hsl(348, 100%, 61%); }
+    .wip { background-color: hsl(48, 100%, 67%); }
+    .completed { background-color: hsl(171, 100%, 41%); }
 </style>

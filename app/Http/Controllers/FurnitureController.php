@@ -14,7 +14,7 @@ class FurnitureController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Fetch all orders.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,11 +22,11 @@ class FurnitureController extends Controller
     {
         $furniture = Furniture::all();
 
-        return $furniture;
+        return response($furniture, 200);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created furniture item into database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -44,9 +44,9 @@ class FurnitureController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified furniture item in database.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  \App\Furniture  $furniture
      * @return \Illuminate\Http\Response
      */
@@ -63,7 +63,7 @@ class FurnitureController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified furniture item from database.
      *
      * @param  \App\Furniture  $furniture
      * @return \Illuminate\Http\Response

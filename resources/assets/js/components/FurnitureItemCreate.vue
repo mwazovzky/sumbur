@@ -29,10 +29,7 @@
 
         methods: {
             create() {
-                axios.post(this.endpoint, {
-                    name: this.name,
-                    description: this.description
-                })
+                axios.post(this.endpoint, { name: this.name, description: this.description })
                     .then((response) => {
                         this.$emit('created', response.data);
                         this.reset();

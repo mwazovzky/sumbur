@@ -10,7 +10,7 @@
             </td>
             </td>
             <td class="centered" v-if="isAdmin">
-                <button class="btn btn-warning btn-xs" @click="update">Update</button>
+                <button class="btn btn-info btn-xs" @click="update">Update</button>
             </td>
             <td class="centered" v-if="isAdmin">
                 <button class="btn btn-danger btn-xs" @click="cancel">Cancel</button>
@@ -22,7 +22,7 @@
             <td v-text="name"></td>
             <td v-text="description"></td>
             <td v-if="isAdmin">
-                <button class="btn btn-warning btn-xs" @click="edit">Edit</button>
+                <button class="btn btn-info btn-xs" @click="edit">Edit</button>
             </td>
             <td v-if="isAdmin">
                 <button class="btn btn-danger btn-xs" @click="remove">Delete</button>
@@ -45,8 +45,8 @@
         },
 
         methods: {
-            remove() {
-                axios.delete(`${this.endpoint}/${this.data.id}`).then(() => this.$emit('deleted'));
+            edit() {
+                this.editing = true;
             },
 
             update() {
@@ -58,13 +58,13 @@
                     .catch(errors => console.log(errors));
             },
 
-            edit() {
-                this.editing = true;
-            },
-
             cancel() {
                 this.editing = false;
                 this.reset();
+            },
+
+            remove() {
+                axios.delete(`${this.endpoint}/${this.data.id}`).then(() => this.$emit('deleted'));
             },
 
             reset() {

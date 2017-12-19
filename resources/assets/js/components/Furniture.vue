@@ -7,7 +7,6 @@
             <tr v-else>
                 <th>ID</th><th>Наименование</th><th>Описание</th>
             </tr>
-
         </thead>
 
         <furniture-item-create
@@ -66,6 +65,3 @@
         }
     }
 </script>
-<style scoped>
-
-</style>
