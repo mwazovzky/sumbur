@@ -3,7 +3,7 @@
         <tr>
             <td></td>
             <td>
-                <select v-model="status" class="form-control">
+                <select v-model="status" class="form-control" :disabled="!isAdmin">
                     <option v-for="item in statuses" :value="item" v-text="item"></option>
                 </select>
             </td>
