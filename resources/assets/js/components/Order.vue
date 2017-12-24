@@ -11,10 +11,10 @@
             <td v-text="name"></td>
             </td>
             <td class="centered" v-if="isAdmin">
-                <button class="btn btn-info btn-xs" @click="update">Update</button>
+                <button class="btn btn-info" @click="update">Update</button>
             </td>
             <td class="centered" v-if="isAdmin">
-                <button class="btn btn-danger btn-xs" @click="cancel">Cancel</button>
+                <button class="btn btn-danger" @click="cancel">Cancel</button>
             </td>
         </tr>
 
@@ -24,10 +24,10 @@
             <td v-text="data.process" :class="statusColor"></td>
             <td v-text="name" :class="statusColor"></td>
             <td v-if="isAdmin">
-                <button class="btn btn-info btn-xs" @click="edit">Edit</button>
+                <button class="btn btn-info" @click="edit">Edit</button>
             </td>
             <td v-if="isAdmin">
-                <button class="btn btn-danger btn-xs" @click="remove">Delete</button>
+                <button class="btn btn-danger" @click="remove">Delete</button>
             </td>
         </tr>
     </tbody>
@@ -91,7 +91,7 @@
     }
 </script>
 <style scoped>
-    button { width: 50px; color: hsl(0, 0%, 20%); }
+    button { width: 80px; color: hsl(0, 0%, 20%); margin: 0 auto; }
     .btn-danger { background-color: hsl(348, 100%, 61%); }
     .btn-info { background-color: hsl(48, 100%, 67%); }
     .new { background-color: hsl(348, 100%, 61%); }

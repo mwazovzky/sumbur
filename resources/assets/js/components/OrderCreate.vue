@@ -27,6 +27,8 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         props: ['statuses', 'processes'],
 
@@ -35,8 +37,7 @@
                 endpoint: '/orders',
                 status: '',
                 process: '',
-                furniture_id: '',
-                catalog: []
+                furniture_id: ''
             };
         },
 
@@ -50,10 +51,7 @@
             }
         },
 
-        created() {
-            window.events.$on('catalog:updated', () => this.updateCatalog());
-            this.updateCatalog();
-        },
+        computed: mapGetters(['catalog']),
 
         methods: {
             create() {

@@ -18,7 +18,7 @@
             v-for="(item, index) in catalog"
             :data="item"
             :key="item.id"
-            @updated="update(index, $event)"
+            @updated="update"
             @deleted="remove(index)">
         </furniture-item>
     </table>
@@ -27,41 +27,22 @@
 <script>
     import FurnitureItem from './FurnitureItem.vue';
     import FurnitureItemCreate from './FurnitureItemCreate.vue';
+    import { mapGetters, mapMutations, mapActions } from 'vuex';
 
     export default {
         components: { FurnitureItem, FurnitureItemCreate },
 
-        data() {
-            return {
-                endpoint: '/furniture',
-                catalog: []
-            };
+        created() {
+            this.load()
+                .then((response) => console.log('Catalog loaded successfully'))
+                .catch((errors) => console.error('Faild to loaded catalog data'));
         },
 
-        created() {
-            axios.get(this.endpoint).then( response => this.catalog = response.data);
-        },
+        computed: mapGetters(['catalog']),
 
         methods: {
-            add(data) {
-                this.catalog.push(data);
-                this.broadcast();
-            },
-
-            update(index, data) {
-                this.catalog[index].name = data.name;
-                this.catalog[index].description = data.description;
-                this.broadcast();
-            },
-
-            remove(index) {
-                this.catalog.splice(index, 1);
-                this.broadcast();
-            },
-
-            broadcast() {
-                window.events.$emit('catalog:updated');
-            }
+            ...mapMutations(['add', 'update', 'remove']),
+            ...mapActions(['load'])
         }
-    }
+    };
 </script>
